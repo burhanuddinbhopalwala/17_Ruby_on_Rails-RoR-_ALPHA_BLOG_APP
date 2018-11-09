@@ -97,7 +97,7 @@ Gemfile and Gemfile.lock before the Heroku deploy
 8.2:
 - gem install <gem_name> # For installing gem seprately 
 - gem uninstall <gem_name> # For removing a particular gem
-- bundle update <gem_name> # For individual gem
+- bundle update <gem_name> # For individual gempush
 - bundle update --all # Ignores the Gemfile.lock and update all the 
 gems
 =end 
@@ -112,6 +112,7 @@ gems
 - heroku keys:add # adding ssh for crenditial helper 
 - heroku create # to create the production version of app on heroku
 - git push heroku master 
+- heroku run rake db:migrate
 - heroku rename <new_app_name>
 - final URL: <new_app_name>.herokuapp.com
 
