@@ -1,0 +1,15 @@
+<div class = "container">
+    <div class = "row">
+        <div class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10">    
+            <% flash.each() do |name, msg| %>
+                <div class = 'alert alert-<%= "#{name}" %>'> 
+                    <!-- name: "success" OR "danger" -->
+                    <a href = "#" class = "close" data-dismiss = "alert">&#215;</a> 
+                    <!-- &#215; for 'x' button -->
+                    <!-- <%= content_tag :div, msg, :id => "flash_#{name}" if(msg.is_a?(String)) %> --> 
+                    <%= msg %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

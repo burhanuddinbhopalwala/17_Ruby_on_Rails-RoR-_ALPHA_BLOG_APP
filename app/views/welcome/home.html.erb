@@ -1,0 +1,21 @@
+<!-- 
+    1: Rails default handler searches here (inside view folder) 
+    for response as html
+
+    2: Rails uses other handlers for other formats. Builder handler 
+    is used to build XML templates and coffee handler uses Coffee-
+    -Script to build JavaScript templates. Since you want to create 
+    a new HTML form, you will be using the ERB language which is 
+    designed to embed Ruby in HTML
+-->
+
+<div class="center jumbotron">
+    <h1>Hello, Rails!</h1>
+    <%= link_to("Sign up now", signup_path(), class:"btn btn-primary btn-lg btn-xlarge") %>
+</div>
+
+<!--
+    3: The link_to() is one of Rails' built-in view helpers. It 
+    creates a hyperlink based on text to display and where to 
+    go - in this case, to the path for articles
+-->

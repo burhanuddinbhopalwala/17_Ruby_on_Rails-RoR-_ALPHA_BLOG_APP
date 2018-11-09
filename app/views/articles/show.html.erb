@@ -1,0 +1,67 @@
+<h2 align = "center">Title: <%= @article.title %></h2>
+<div class = "container">
+  <div class = "well row">
+    <div class = "col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-8 col-sm-8 col-md-8 col-lg-8">    
+      <% if(@article.user) %>
+        <ul class = "listing">
+          <div class = "container">
+              <div class = "row center">
+                  <div class="center col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 
+                  col-xs-4 col-sm-4 col-md-4 col-lg-4"> 
+                      <li>Created by:</li>
+                      <li><%= link_to(gravatar_for(@article.user), user_path(@article.user)) %></li>
+                      <li class = "article-title"><%= link_to(@article.user.username, user_path(@article.user)) %></li>
+                      <li><small><%= pluralize(@article.user.articles.count, "article") if(@article.user.articles) %></small></li>
+                  </div>
+              </div>
+          </div>
+        </ul>
+      <% end %>
+      <h4 class = "center description"><strong>Description: </strong></h4>
+      <hr>
+      <%= simple_format(@article.text) %>
+
+      <!-- For categories -->
+      <% if @article.categories.any?() %>
+        <p>Categories: <%= render(@article.categories) %></p>
+        <!-- Shortcut same effect as @articles.categories.each() -->
+      <% end %>
+
+      <div class = "article-actions">
+        <% if(logged_in?() and (current_user() == @article.user || current_user().admin?())) %>  
+          <%= link_to("Edit this article", edit_article_path(@article), class: "btn btn-xs btn-primary") %>
+          <%= link_to("Delete this article", article_path(@article), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-xs btn-danger") %>
+        <% end %>  
+        <%= link_to("View all articles", articles_path(), class: "btn btn-xs btn-success") %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1: For showing a comment -->
+<h2>Comments</h2>
+<%= render(@article.comments) %>
+<!-- 
+  - This will now render the partial in app/views/comments/_comment.html.erb 
+  once for each comment that is in the @article.comments collection. 
+  
+  - IMP: As the render() iterates over the @article.comments 
+  collection, it assigns each comment to a local variable named 
+  the same as the partial, in this case comment which is then avai-
+  -lable in the partial for us to show. 
+-->
+<!-- 2: For adding a comment -->
+<%= render("comments/form") %>
+<!-- 
+  - The second render just defines the partial template we want 
+  to render, comments/form. Rails is smart enough to spot the 
+  forward slash in that string and realize that you want to render 
+  the _form.html.erb file in the app/views/comments directory.
+
+  - The @article object is available to any partials rendered in 
+  the comments view because we defined it as an instance variable.
+-->
+<div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-4 col-sm-4 col-md-4 col-lg-4">
+  <%= link_to("Edit", edit_article_path(@article)) %> | 
+  <%= link_to('Back', articles_path) %>
+</div>

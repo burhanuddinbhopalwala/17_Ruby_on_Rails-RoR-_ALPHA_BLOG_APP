@@ -1,0 +1,29 @@
+<!-- For errors -->
+<% if obj.errors().any?() %>
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-8 col-sm-8 col-md-8 col-lg-8">    
+                <div class = "panel panel-danger">        
+                    <div class = "panel-heading">
+                        <h2 class = "panel-title">
+                            <%= pluralize(obj.errors().count(), "error") %> prohibited
+                            this article from being saved:
+                            <!-- 
+                                1: pluralize() is a rails helper that takes a number and a 
+                                string as its arguments. If the number is greater than one, 
+                                the string will be automatically pluralized
+                            -->
+                        </h2>                     
+                        <div class = "panel-body">
+                            <ul>
+                                <% obj.errors.full_messages().each() do |msg| %>
+                                    <li><%= msg %></li>
+                                <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>

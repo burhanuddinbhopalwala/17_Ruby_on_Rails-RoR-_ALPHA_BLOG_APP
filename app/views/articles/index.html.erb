@@ -1,0 +1,4 @@
+<h1 align = "center">Listing articles</h1> 
+<div align = "center"><%= will_paginate(@articles) %></div>
+<%= render("articles/article", articles_obj: @articles) %>
+<div align = "center"><%= will_paginate(@articles) %></div>
